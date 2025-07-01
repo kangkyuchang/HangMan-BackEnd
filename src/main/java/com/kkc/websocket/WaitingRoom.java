@@ -79,6 +79,15 @@ public class WaitingRoom {
 			}
 		}
 		else {
+			if(name.equals("선생님")) {
+				String password = params[1].split("=")[1];
+				if(password.equals(Authentication.PASSWORD)) {
+					masterSession = session;
+					sessionList.add(session);
+					participant.add(name);
+					return;
+				}
+			}
 			try {
 				if(session.isOpen())
 					session.getBasicRemote().sendText(getStartJSON());
@@ -108,12 +117,38 @@ public class WaitingRoom {
 				}
     		}
     	}
+    	else if(msg.equals("재시작")) {
+    		GameRoom.game.init();
+    		GameRoom.game.setStart(true);
+    		for(Session s : sessionList) {
+    			if(s.isOpen()) {
+					try {
+						s.getBasicRemote().sendText(getStartJSON());
+					} 
+					catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+    		}
+    	}
     }
     
     @OnClose
     public void onClose(Session session) {
     	if(sessionList.contains(session)) {
     		int index= sessionList.indexOf(session);
+    		for(Session s : sessionList) {
+    			if(s == session)
+    				continue;
+    			if(s.isOpen()) {
+					try {
+						s.getBasicRemote().sendText(getJSON(participant.get(index)));
+					} 
+					catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+    		}
     		sessionList.remove(index);
     		participant.remove(index);
     	}
@@ -130,6 +165,14 @@ public class WaitingRoom {
 			sb.append("\"" + s + "\"");
 		}
 		sb.append("]}");
+		return sb.toString();
+	}
+    
+    private String getJSON(String name) {
+		StringBuffer sb = new StringBuffer("");
+		sb.append("{ \"type\": \"quit\", ");
+		sb.append("\"player\": \"" + name + "\"");
+		sb.append("}");
 		return sb.toString();
 	}
     

@@ -19,20 +19,22 @@ public class HangMan {
 	private List<String> usedAlphabet;
 	
 	public HangMan() {
-		isStart = false;
-		step = 0;
-		winner = new HashMap<Integer, String>();
-		question = new ArrayList<String>();
-		correctAnswer = new ArrayList<String>();
-		correctAnswerAlphabet = new ArrayList<String[]>();
-		correctAlphabet = new ArrayList<String[]>();
-		usedAlphabet = new ArrayList<String>();
 		setQuestion();
 		MAXSTEP = question.size();
 		init();
 	}
 	
-	private void init() {
+	public void init() {
+		isStart = false;
+		step = 0;
+		winner = new HashMap<Integer, String>();
+		initStep();
+	}
+	
+	private void initStep() {
+		correctAnswerAlphabet = new ArrayList<String[]>();
+		correctAlphabet = new ArrayList<String[]>();
+		usedAlphabet = new ArrayList<String>();
 		life = 7;
 		String correctAnswer = this.correctAnswer.get(step);
 		for(int i = 0; i < correctAnswer.length(); i++) {
@@ -41,23 +43,25 @@ public class HangMan {
 			correctAlphabet.add(str);
 		}
 //		for(String[] str: correctAnswerAlphabet) {
-//			for(String s : str) {
-//				System.out.print(" " + s);
-//			}
+//		for(String s : str) {
+//			System.out.print(" " + s);
 //		}
+//	}
 	}
 	
 	private void setQuestion() {
-		question.add("문자체계를 N만큼 이동시켜 암호화 하는 기법은?");
-		correctAnswer.add("카이사르암호");
-		question.add("데이터를 한 곳에 저장하는 것이 아닌 거래에 참여하는 모든 사용자에게 데이터를 저장하는 기술은?");
-		correctAnswer.add("블록체인");
-		question.add("데이터에 고유한 값을 부여하여 교환이나 복제를 불가능한 형태로 만든 것은?");
-		correctAnswer.add("대체불가능한토큰");
-		question.add("신원을 증명하는 방법으로 사용되고 있는 암호화는?");
-		correctAnswer.add("디지털서명");
-		question.add("HTTPS 암호화에 사용되는 키는?");
-		correctAnswer.add("대칭키");
+		question = new ArrayList<String>();
+		correctAnswer = new ArrayList<String>();
+		question.add("기계학습은 사람의 OO 능력을 컴퓨터로 구현하기 위해 빅데이터로 학습시켜 새로운 데이터를 예측하는 인공지능 기술이다.");
+		correctAnswer.add("학습");
+		question.add("비지도 학습은 OO이 없는 데이터로 학습하여 스스로 데이터 간의 패턴이나 구조를 찾아내어 비슷한 것끼리 묶는다.");
+		correctAnswer.add("정답");
+		question.add("동일한 목적의 인공지능이라도 학습 OO에 따라 지도학습이 될 수도 있고 비지도 학습이 될 수도 있다.");
+		correctAnswer.add("상황");
+		question.add("게임에서 플레이어가 아닌 봇과 대결할 때 해당 봇의 기계학습 유형은?");
+		correctAnswer.add("강화학습");
+		question.add("넷플릭스와 같은 OTT에서 제공하는 영상 추천 시스템의 기계학습 유형은?");
+		correctAnswer.add("비지도학습");
 	}
 	
 	public boolean isStart() {
@@ -96,7 +100,7 @@ public class HangMan {
 		correctAnswerAlphabet.clear();
 		correctAlphabet.clear();
 		usedAlphabet.clear();
-		init();
+		initStep();
 	}
 	
 	public String getQuestion() {
@@ -161,8 +165,8 @@ public class HangMan {
 			}
 			map.put(name, count);
 		}
-		
-		for(int i = 0; i < map.keySet().size(); i++) {
+		int size = map.keySet().size();
+		for(int i = 0; i < size; i++) {
 			String max = "";
 			Iterator<String> iterator = map.keySet().iterator();
 			while(iterator.hasNext()) {
