@@ -1,4 +1,4 @@
-package com.kkc.websocket;
+package com.kkc.hangman.websocket;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -9,7 +9,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import com.kkc.HangMan;
+import com.kkc.hangman.HangMan;
 
 import jakarta.websocket.OnClose;
 import jakarta.websocket.OnMessage;

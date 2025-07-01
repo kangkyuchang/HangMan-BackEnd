@@ -1,4 +1,4 @@
-package com.kkc;
+package com.kkc.hangman;
 
 import java.util.ArrayList;
 import java.util.HashMap;

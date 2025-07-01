@@ -1,4 +1,4 @@
-package com.kkc;
+package com.kkc.hangman;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -10,8 +10,6 @@ import java.io.IOException;
 @WebServlet("/authentication")
 public class Authentication extends HttpServlet {
 	
-	public static final String PASSWORD = "ABcDefgHijk";
-	
 	private static final long serialVersionUID = 1L;
        
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -21,7 +19,7 @@ public class Authentication extends HttpServlet {
 		if(password == null)
 			response.getWriter().write(getJSON(bool));
 		
-		if(password.equals(PASSWORD))
+		if(password.equals(HangManConfig.PASSWORD))
 			bool = true;
 		
 		response.getWriter().write(getJSON(bool));

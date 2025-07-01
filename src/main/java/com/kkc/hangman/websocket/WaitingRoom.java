@@ -1,4 +1,4 @@
-package com.kkc.websocket;
+package com.kkc.hangman.websocket;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.kkc.Authentication;
+import com.kkc.hangman.HangManConfig;
 
 import jakarta.websocket.OnClose;
 import jakarta.websocket.OnMessage;
@@ -53,7 +53,7 @@ public class WaitingRoom {
 		if(!GameRoom.game.isStart()) {
 			if(name.equals("선생님")) {
 				String password = params[1].split("=")[1];
-				if(password.equals(Authentication.PASSWORD))
+				if(password.equals(HangManConfig.PASSWORD))
 					masterSession = session;
 			}
 			if(!sessionList.contains(session)) {
@@ -81,7 +81,7 @@ public class WaitingRoom {
 		else {
 			if(name.equals("선생님")) {
 				String password = params[1].split("=")[1];
-				if(password.equals(Authentication.PASSWORD)) {
+				if(password.equals(HangManConfig.PASSWORD)) {
 					masterSession = session;
 					sessionList.add(session);
 					participant.add(name);
